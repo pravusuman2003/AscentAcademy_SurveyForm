@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Feedback Form</title>
+    <style>
+      /* Style the form */
+      form {
+        margin: auto;
+        width: 50%;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 10px;
+      }
+      
+      /* Style the form elements */
+      input[type=text], input[type=email], input[type=tel], textarea {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        resize: none;
+      }
+      
+      /* Style the submit button */
+      input[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      /* Style the success message */
+      #success {
+        color: green;
+        margin-top: 10px;
+      }
+      
+      /* Style the error messages */
+      .error {
+        color: red;
+        margin-bottom: 5px;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <h1>Feedback Form</h1>
+    <form id="feedback-form">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+      
+      <label for="feedback">Feedback:</label>
+      <textarea id="feedback" name="feedback" rows="5" required></textarea>
+      
+      <input type="submit" value="Submit">
+      
+      <div id="success"></div>
+      
+    </form>
+    
+    <script>
+      // Get the form element
+      const form = document.getElementById('feedback-form');
+      
+      // Add event listener for form submission
+      form.addEventListener('submit', function(event) {
+        // Prevent the form from submitting
+        event.preventDefault();
+        
+        // Get the form data
+        const formData = new FormData(form);
+        
+        // Validate the email address
+        const email = formData.get('email');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          const errorEmail = document.createElement('div');
+          errorEmail.classList.add('error');
+          errorEmail.textContent = 'Please enter a valid email address.';
+          form.insertBefore(errorEmail, form.childNodes[5]);
+          return;
+        }
+        
+        // Validate the phone number
+        const phone = formData.get('phone');
+        const phoneRegex = /^\d{10}$/;
+        if (!phoneRegex.test(phone)) {
+          const errorPhone = document.createElement('div');
+          errorPhone.classList.add('error');
+          errorPhone.textContent = 'Please enter a valid phone number.';
+          form.insertBefore(errorPhone, form.childNodes[7]);
+          return;
+        }
+	</script>
+
+  </body>
+</html>
